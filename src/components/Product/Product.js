@@ -16,9 +16,17 @@ const Product = props => {
 
   const [isActive, setActive] = useState(false);
 
-  const toggleClass = e => {
+  const toggleClass = () => {
     isActive ? setActive(false) : setActive(true);
   }
+
+  
+  // const getPrice = () => {
+  //   let addPrice = props.sizes.find('additionalPrice');
+
+  //   return props.basePrice + addPrice;
+  // }
+
 
   return (
     <article className={styles.product}>
@@ -49,7 +57,6 @@ const Product = props => {
           <div className={styles.colors}>
             <h3 className={styles.optionLabel}>Colors</h3>
             <ul className={styles.choices}>
-              {/* {props.colors.map(color => <li key={color}><button type="button" className={clsx(styles.colors, currentColor && styles.active)} /></li>)} */}
               {props.colors.map(item =>
                 <li key={item}>
                   <button type="button" className={clsx(prepareColorClassName(item), isActive ? item === currentColor && styles.active : '')} onClick={toggleClass}/>
