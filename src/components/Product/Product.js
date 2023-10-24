@@ -13,6 +13,13 @@ const Product = props => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
   }
 
+
+  const [isActive, setActive] = useState(false);
+
+  const toggleClass = e => {
+    isActive ? setActive(false) : setActive(true);
+  }
+
   return (
     <article className={styles.product}>
       <div className={styles.imageContainer}>
@@ -32,7 +39,7 @@ const Product = props => {
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
-              {props.sizes.map(item => <li key={item}><button type="button" className={clsx(item.name === currentSize && styles.active)}>{item.name}</button></li>)}
+              {props.sizes.map(item => <li key={item}><button type="button" className={clsx(isActive ? item.name === currentSize && styles.active : '')} onClick={toggleClass}>{item.name}</button></li>)}
               {/* <li><button type="button" className={styles.active}>S</button></li>
               <li><button type="button">M</button></li>
               <li><button type="button">L</button></li>
@@ -45,7 +52,7 @@ const Product = props => {
               {/* {props.colors.map(color => <li key={color}><button type="button" className={clsx(styles.colors, currentColor && styles.active)} /></li>)} */}
               {props.colors.map(item =>
                 <li key={item}>
-                  <button type="button" className={clsx(prepareColorClassName(item), item === currentColor && styles.active)}/>
+                  <button type="button" className={clsx(prepareColorClassName(item), isActive ? item === currentColor && styles.active : '')} onClick={toggleClass}/>
                 </li>
               )}
               {/* {products.map(product => <Product key={product.id} {...product}/>)} */}
