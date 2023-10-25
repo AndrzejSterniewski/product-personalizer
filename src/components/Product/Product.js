@@ -13,11 +13,26 @@ const Product = props => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
   }
 
-  // const getPrice = () => {
-  //   let addPrice = props.sizes.find('additionalPrice');
+  const getPrice = () => {
+    const result = props.sizes.find(({ name }) => name === currentSize);
+    let sum = props.basePrice + result.additionalPrice;
+    console.log('additionalPrice:' + result.additionalPrice);
+    console.log('sum:' + sum);
+    return sum;
+  }
 
-  //   return props.basePrice + addPrice;
-  // }
+  const addToCart = e => {
+    e.preventDefault();
+    // Summary using object:
+    // let summary = {
+    //   Name: props.title,
+    //   Price: props.basePrice,
+    //   Size: currentSize,
+    //   Color: currentColor,
+    // };
+    // console.log(summary);
+    console.log(`Summary\n==============\nName: ${props.title}\nPrice: ${getPrice()}$\nSize: ${currentSize}\nColor: ${currentColor}`);
+  }
 
   return (
     <article className={styles.product}>
@@ -29,44 +44,33 @@ const Product = props => {
       </div>
       <div>
         <header>
-          {/* <h2 className={styles.name}>Kodilla shirt</h2> */}
           <h2 className={styles.name}>{props.title}</h2>
-          {/* <span className={styles.price}>Price: 20$</span> */}
-          <span className={styles.price}>Price: {props.basePrice}$</span>
+          <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
         <form>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
               {props.sizes.map(item => <li key={item.name}><button type="button" className={clsx(item.name === currentSize && styles.active)} onClick={() => setSize(item.name)}>{item.name}</button></li>)}
-              {/* <li><button type="button" className={styles.active}>S</button></li>
-              <li><button type="button">M</button></li>
-              <li><button type="button">L</button></li>
-              <li><button type="button">XL</button></li> */}
             </ul>
           </div>
           <div className={styles.colors}>
             <h3 className={styles.optionLabel}>Colors</h3>
             <ul className={styles.choices}>
               {props.colors.map(item =>
-                <li key={item.name}>
+                <li key={item}>
                   <button type="button" className={clsx(prepareColorClassName(item), item === currentColor && styles.active)} onClick={() => setColor(item)} />
                 </li>
               )}
-              {/* {products.map(product => <Product key={product.id} {...product}/>)} */}
-              {/* <li><button type="button" className={clsx(styles.colorBlack, styles.active)} /></li>
-              <li><button type="button" className={clsx(styles.colorRed)} /></li>
-              <li><button type="button" className={clsx(styles.colorWhite)} /></li> */}
             </ul>
           </div>
-          <Button className={styles.button}>
+          <Button className={styles.button} onClick={addToCart}>
             <span className="fa fa-shopping-cart" />
           </Button>
         </form>
       </div>
     </article>
   )
-
 };
 
 Product.propTypes = {
