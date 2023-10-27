@@ -1,9 +1,8 @@
 import styles from './Product.module.scss';
-import clsx from 'clsx';
-import Button from '../Button/Button';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import ProductImage from '../ProductImage/ProductImage';
+import ProductForm from '../ProductForm/ProductForm';
 
 const Product = props => {
 
@@ -37,13 +36,13 @@ const Product = props => {
 
   return (
     <article className={styles.product}>
-      <ProductImage name={props.name} color={currentColor} />
+      <ProductImage name={props.name} title={props.title} currentColor={currentColor} />
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
           <span className={styles.price}>Price: {getPrice()}$</span>
         </header>
-        <form>
+        {/* <form>
           <div className={styles.sizes}>
             <h3 className={styles.optionLabel}>Sizes</h3>
             <ul className={styles.choices}>
@@ -63,7 +62,8 @@ const Product = props => {
           <Button className={styles.button} onClick={addToCart}>
             <span className="fa fa-shopping-cart" />
           </Button>
-        </form>
+        </form> */}
+        <ProductForm addToCart={addToCart} getPrice={getPrice} setSize={setSize} setColor={setColor} currentColor={currentColor} currentSize={currentSize} prepareColorClassName={prepareColorClassName} colors={props.colors} sizes={props.sizes} />
       </div>
     </article>
   )
