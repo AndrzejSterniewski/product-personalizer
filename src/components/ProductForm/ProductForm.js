@@ -13,7 +13,8 @@ const ProductForm = ( props ) => {
           {props.sizes.map(item => <li key={item.name}><button type="button" className={clsx(item.name === props.currentSize && styles.active)} onClick={() => props.setSize(item.name)}>{item.name}</button></li>)}
         </ul>
       </div>
-      <OptionSize setSize={props.setSize} currentSize={props.currentSize} sizes={props.sizes} />
+      <OptionSize className={styles.sizes} onClick={props.setSize} setSize={props.setSize} currentSize={props.currentSize} sizes={props.sizes} name={props.name}/>
+      
       <div className={styles.colors}>
         <h3 className={styles.optionLabel}>Colors</h3>
         <ul className={styles.choices}>
@@ -24,7 +25,7 @@ const ProductForm = ( props ) => {
           )}
         </ul>
       </div>
-      <OptionColor prepareColorClassName={props.prepareColorClassName} setColor={props.setColor} currentColor={props.currentColor} colors={props.colors} />
+      <OptionColor prepareColorClassName={props.prepareColorClassName} setColor={props.setColor} currentColor={props.currentColor} colors={props.colors} onClick={props.onClick} />
       <Button className={styles.button} onClick={props.addToCart}>
         <span className="fa fa-shopping-cart" />
       </Button>

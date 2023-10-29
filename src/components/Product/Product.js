@@ -1,6 +1,6 @@
 import styles from './Product.module.scss';
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ProductImage from '../ProductImage/ProductImage';
 import ProductForm from '../ProductForm/ProductForm';
 
@@ -14,9 +14,9 @@ const Product = props => {
   }
 
   const getPrice = () => {
-    const result = props.sizes.find(({ name }) => name === currentSize);
-    let sum = props.basePrice + result.additionalPrice;
-    console.log('additionalPrice:' + result.additionalPrice);
+    const sizes = props.sizes.find(({ name }) => name === currentSize);
+    let sum = props.basePrice + sizes.additionalPrice;
+    console.log('additionalPrice:' + sizes.additionalPrice);
     console.log('sum:' + sum);
     return sum;
   }
