@@ -21,6 +21,15 @@ const Product = props => {
     return sum;
   }
 
+  // Where's a mistake? I Got error in [sum] 'is declared but its value is never read'
+  // const price = useMemo(() => {
+  //   const getPrice = () => {
+  //   const sizes = props.sizes.find(({ name }) => name === currentSize);
+  //   let sum = props.basePrice + sizes.additionalPrice;
+  //   console.log('additionalPrice:' + sizes.additionalPrice);
+  //   console.log('sum:' + sum);
+  //   return sum;
+  // }, [sum]});
 
   const addToCart = e => {
     e.preventDefault();
