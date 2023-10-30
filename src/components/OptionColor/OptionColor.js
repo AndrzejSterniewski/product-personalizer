@@ -1,8 +1,10 @@
 import styles from '../Product/Product.module.scss';
 import clsx from 'clsx';
+import PropTypes from 'prop-types';
 
 const OptionColor = ( props ) => {
-    <div className={styles.colors}>
+  return (
+     <div className={styles.colors}>
         <h3 className={styles.optionLabel}>Colors</h3>
         <ul className={styles.choices}>
           {props.colors.map(item =>
@@ -12,6 +14,11 @@ const OptionColor = ( props ) => {
           )}
         </ul>
       </div>
+  )  
+}
+
+OptionColor.propTypes = {
+  currentColor: PropTypes.string
 }
 
 export default OptionColor;
