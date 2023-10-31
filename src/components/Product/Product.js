@@ -13,23 +13,11 @@ const Product = props => {
     return styles['color' + color[0].toUpperCase() + color.substr(1).toLowerCase()];
   }
 
-  const getPrice = () => {
+  const price = useMemo(() => {
     const sizes = props.sizes.find(({ name }) => name === currentSize);
     let sum = props.basePrice + sizes.additionalPrice;
-    console.log('additionalPrice:' + sizes.additionalPrice);
-    console.log('sum:' + sum);
     return sum;
-  }
-
-  // Where's a mistake? I Got error in [sum] 'is declared but its value is never read'
-  // const price = useMemo(() => {
-  //   const getPrice = () => {
-  //   const sizes = props.sizes.find(({ name }) => name === currentSize);
-  //   let sum = props.basePrice + sizes.additionalPrice;
-  //   console.log('additionalPrice:' + sizes.additionalPrice);
-  //   console.log('sum:' + sum);
-  //   return sum;
-  // }, [sum]});
+  }, [props.basePrice, props.sizes, currentSize]);
 
   const addToCart = e => {
     e.preventDefault();
@@ -41,7 +29,7 @@ const Product = props => {
     //   Color: currentColor,
     // };
     // console.log(summary);
-    console.log(`Summary\n==============\nName: ${props.title}\nPrice: ${getPrice()}$\nSize: ${currentSize}\nColor: ${currentColor}`);
+    console.log(`Summary\n==============\nName: ${props.title}\nPrice: ${price}$\nSize: ${currentSize}\nColor: ${currentColor}`);
   }
 
   return (
@@ -50,9 +38,9 @@ const Product = props => {
       <div>
         <header>
           <h2 className={styles.name}>{props.title}</h2>
-          <span className={styles.price}>Price: {getPrice()}$</span>
+          <span className={styles.price}>Price: {price}$</span>
         </header>
-        <ProductForm addToCart={addToCart} getPrice={getPrice} setSize={setSize} setColor={setColor} currentColor={currentColor} currentSize={currentSize} prepareColorClassName={prepareColorClassName} colors={props.colors} sizes={props.sizes} />
+        <ProductForm addToCart={addToCart} setSize={setSize} setColor={setColor} currentColor={currentColor} currentSize={currentSize} prepareColorClassName={prepareColorClassName} colors={props.colors} sizes={props.sizes} />
       </div>
     </article>
   )
@@ -61,8 +49,11 @@ const Product = props => {
 Product.propTypes = {
   name: PropTypes.string,
   title: PropTypes.string,
+  colors: PropTypes.array,
+  sizes: PropTypes.array,
   image: PropTypes.string,
-  basePrice: PropTypes.number
+  basePrice: PropTypes.number,
+  price: PropTypes.number
 }
 
 export default Product;
